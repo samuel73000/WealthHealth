@@ -1,0 +1,9 @@
+footer {
+    margin-top: auto; /* Pousse le footer vers le bas */
+    text-align: center;
+    background-color: #f1f1f1;
+    padding: 10px;
+  }
+  footer p {
+    font-size: 15px;
+  }
