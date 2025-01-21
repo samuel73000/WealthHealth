@@ -1,0 +1,47 @@
+.container-dateTimePicker {
+  width: 224px;
+  height: 180px;
+  background-color: chartreuse;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+
+  margin-left: 20px;
+  margin-bottom: 20px;
+}
+
+.header-dateTimePicker {
+  display: flex;
+  flex-direction: row;
+  align-items: top;
+  align-content: center;
+  justify-content: space-between;
+}
+.header-dateTimePicker,
+p {
+  font-size: 15px;
+  margin: 0;
+}
+
+
+
+
+.container-days-dateTimePicker {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  align-content: center;
+}
+#container-days-dateTimePicker-1{
+    margin-top: 10px;
+}
+.days-dateTimePicker {
+  font-size: 10px;
+  border: 0.5px solid gray;
+  padding: 3.5px;
+  height: 16px;
+  width: 24px;
+  align-content: center;
+  background-color: aliceblue;
+}

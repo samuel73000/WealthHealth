@@ -6,7 +6,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import * as React from "react";
 import States from "../../data/States";
-
+import DateTimePicker from "../../Components/DateTimePicker/DateTimePicker";
 
 export default function CreateEmployee() {
   const [Department, setDepartment] = React.useState("");
@@ -39,7 +39,7 @@ export default function CreateEmployee() {
 
           <FormControl sx={{ m: 1, minWidth: 250 }}>
             <InputLabel>State</InputLabel>
-            <Select value={State} label='State' onChange={handleChangeState} >
+            <Select value={State} label='State' onChange={handleChangeState}>
               {States.map((States, index) => (
                 <MenuItem value={index}>{States.name}</MenuItem>
               ))}
@@ -64,6 +64,7 @@ export default function CreateEmployee() {
           </Select>
         </FormControl>
       </form>
+      <DateTimePicker />
     </main>
   );
 }
