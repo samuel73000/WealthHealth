@@ -1,5 +1,5 @@
 .container-dateTimePicker {
-  width: 224px;
+  width: 260px;
   height: 180px;
   background-color: chartreuse;
   padding: 10px;
@@ -28,13 +28,11 @@ p {
 
 
 .container-days-dateTimePicker {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
   align-items: center;
   align-content: center;
   margin-top: 10px;
-  flex-wrap: wrap;
 }
 
 .days-number-dateTimePicker {
@@ -46,7 +44,4 @@ p {
   align-content: center;
   text-align: center;
   background-color: aliceblue;
-}
-.days-number-dateTimePicker:hover {
-  color: lightblue;
 }
