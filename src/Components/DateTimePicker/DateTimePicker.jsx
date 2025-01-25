@@ -17,8 +17,6 @@ export default function DateTimePicker() {
   const days = getDaysInMonth(year, month);
   const currentDay = currentDate.getDate();
   const today = new Date();
-  console.log(today);
-
 
   function getDaysInMonth(year, month) {
     const days = [];
@@ -53,35 +51,7 @@ export default function DateTimePicker() {
     return lastDays;
   }
 
-
-
-  function nextMonth() {
-    setCurrentDate((prevDate) => {
-      const newDate = new Date(prevDate);
-      newDate.setMonth(newDate.getMonth() + 1); // Passer au mois suivant
-      return newDate;
-    });
-  }
-  function previousMonth() {
-    setCurrentDate((prevDate) => {
-      const newDate = new Date(prevDate);
-      newDate.setMonth(newDate.getMonth() - 1); // Reculer d'un mois
-      return newDate;
-    });
-  }
-  
  
-function dateIsToday() {
-    setCurrentDate(today);
-}
-
-
-
-
-
-
-
-
 
   // Calcul des jours vides au début
   const firstDayOfMonth = new Date(year, month, 1).getDay(); // Jour de la semaine (0 = Dimanche, 1 = Lundi, ...)
@@ -95,6 +65,47 @@ function dateIsToday() {
   // Combine les jours du mois précédent et les jours actuels
   const allDays = [...previousMonthDays, ...days];
 
+
+
+
+
+  function nextMonth() { // function pour passer au mois suivant
+    setCurrentDate((prevDate) => {
+      const newDate = new Date(prevDate);
+      newDate.setMonth(newDate.getMonth() + 1); // Passer au mois suivant
+      return newDate;
+    });
+  }
+  function previousMonth() { // function pour revenir au mois précédent
+    setCurrentDate((prevDate) => {
+      const newDate = new Date(prevDate);
+      newDate.setMonth(newDate.getMonth() - 1); // Reculer d'un mois
+      return newDate;
+    });
+  }
+
+  function dateIsToday() { // function pour revenir à la date d'aujourd'hui
+    setCurrentDate(today);
+  }
+
+
+
+
+
+//   function allMonths() {
+//     const months = [];
+//     setCurrentDate((prevDate) => {
+//       for (let i = 0; i < 12; i++) {
+//         const newDate = new Date(prevDate);
+//         newDate.setMonth(prevDate.getMonth() + i);
+//         months.push(newDate.toLocaleString("default", { month: "long" }));
+//       }
+//       return prevDate; // On retourne l'état inchangé (pas nécessaire de changer la date ici)
+//     });
+//   }
+
+
+
   return (
     <section className='container-dateTimePicker'>
       <div className='header-dateTimePicker'>
@@ -105,7 +116,7 @@ function dateIsToday() {
           <FontAwesomeIcon icon={faSortDown} />
         </p>
         <p>
-          {currentDate.getFullYear()} <FontAwesomeIcon icon={faSortDown} />
+          {currentDate.getFullYear()} <FontAwesomeIcon icon={faSortDown}  />
         </p>
         <FontAwesomeIcon icon={faCaretRight} onClick={nextMonth} />
       </div>
