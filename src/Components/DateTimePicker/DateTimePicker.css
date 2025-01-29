@@ -1,10 +1,12 @@
 .container-dateTimePicker {
   width: 260px;
   height: 180px;
-  background-color: chartreuse;
+  background-color: white;
   padding: 10px;
   display: flex;
   flex-direction: column;
+  border: solid 1px black;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35), 0 4px 8px rgba(0, 0, 0, 0.2);
 
   margin-left: 20px;
   margin-bottom: 20px;
@@ -39,6 +41,15 @@ p {
 .month-header-dateTimePicker:hover {
   text-decoration: underline;
 }
+.month-header-dateTimePicker:hover .icon-down-header-dateTimePicker {
+  color: black;
+}
+
+.icon-down-header-dateTimePicker {
+  color: #c7c7c7;
+  cursor: pointer;
+}
+
 .month-list-dateTimePicker {
   list-style: none;
   position: absolute;
@@ -92,7 +103,9 @@ p {
   width: 27.6px;
   align-content: center;
   text-align: center;
-  background-color: aliceblue;
+  background-color: #f9f9f9;
+  font-size: 0.6rem;
+  font-weight: bold;
 }
 .days-number-dateTimePicker {
   font-size: 10px;

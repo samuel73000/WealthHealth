@@ -34,26 +34,26 @@ export default function DateTimePicker() {
   const currentDay = currentDate.getDate();
   const today = new Date();
 
+  // Fonction qui retourne les jours d'un mois donné
   function getDaysInMonth(year, month) {
     const days = [];
-    const date = new Date(year, month, 1); // Premier jour du mois
-
+    const date = new Date(year, month, 1);
     while (date.getMonth() === month) {
-      days.push(new Date(date)); // Ajouter le jour au tableau
-      date.setDate(date.getDate() + 1); // Passer au jour suivant
+      days.push(new Date(date));
+      date.setDate(date.getDate() + 1);
     }
-
     return days;
   }
+
+  // Fonction pour récupérer les derniers jours du mois précédent
   function getLastDaysOfPreviousMonth(year, month, count) {
-    const previousMonth = month === 0 ? 11 : month - 1; // Décembre si on est en janvier
+    const previousMonth = month === 0 ? 11 : month - 1;
     const previousYear = month === 0 ? year - 1 : year;
     const daysInPreviousMonth = new Date(
       previousYear,
       previousMonth + 1,
       0
-    ).getDate(); // Nombre total de jours du mois précédent
-
+    ).getDate();
     const lastDays = [];
     for (
       let i = daysInPreviousMonth - count + 1;
@@ -62,46 +62,53 @@ export default function DateTimePicker() {
     ) {
       lastDays.push(new Date(previousYear, previousMonth, i));
     }
-
     return lastDays;
   }
 
-  // Calcul des jours vides au début
-  const firstDayOfMonth = new Date(year, month, 1).getDay(); // Jour de la semaine (0 = Dimanche, 1 = Lundi, ...)
-  const adjustedFirstDay = (firstDayOfMonth === 0 ? 7 : firstDayOfMonth) - 1; // Ajuster pour que lundi = 0
+  // Calcul du premier jour du mois (pour savoir combien de jours du mois précédent afficher)
+  const firstDayOfMonth = new Date(year, month, 1).getDay();
+  const adjustedFirstDay = (firstDayOfMonth === 0 ? 7 : firstDayOfMonth) - 1;
   const previousMonthDays = getLastDaysOfPreviousMonth(
     year,
     month,
     adjustedFirstDay
   );
 
-  // Combine les jours du mois précédent et les jours actuels
-  const allDays = [...previousMonthDays, ...days];
+  let allDays = [...previousMonthDays, ...days];
 
+  // S'assurer d'avoir exactement 35 jours affichés (5 lignes max)
+  while (allDays.length > 35) {
+    allDays.pop(); // Supprime les derniers jours du mois en trop
+  }
+  while (allDays.length < 35) {
+    allDays.push(new Date(year, month + 1, allDays.length - days.length + 1)); // Ajoute des jours du mois suivant si besoin
+  }
+
+  // Fonction pour passer au mois suivant
   function nextMonth() {
-    // function pour passer au mois suivant
     setCurrentDate((prevDate) => {
       const newDate = new Date(prevDate);
-      newDate.setMonth(newDate.getMonth() + 1); // Passer au mois suivant
-      return newDate;
-    });
-  }
-  function previousMonth() {
-    // function pour revenir au mois précédent
-    setCurrentDate((prevDate) => {
-      const newDate = new Date(prevDate);
-      newDate.setMonth(newDate.getMonth() - 1); // Reculer d'un mois
+      newDate.setMonth(newDate.getMonth() + 1);
       return newDate;
     });
   }
 
+  // Fonction pour passer au mois précédent
+  function previousMonth() {
+    setCurrentDate((prevDate) => {
+      const newDate = new Date(prevDate);
+      newDate.setMonth(newDate.getMonth() - 1);
+      return newDate;
+    });
+  }
+
+  // Fonction pour revenir à la date actuelle
   function dateIsToday() {
-    // function pour revenir à la date d'aujourd'hui
     setCurrentDate(today);
   }
 
+  // Générer la liste des années disponibles
   function generateYearsList(startYear, endYear) {
-    // function pour cree la liste des années (pour la slection des l'années)
     const years = [];
     for (let year = startYear; year >= endYear; year--) {
       years.push(year);
@@ -126,7 +133,7 @@ export default function DateTimePicker() {
           className='month-header-dateTimePicker'
           onClick={() => setOpenMonth(!openMonth)}>
           {currentDate.toLocaleString("en-US", { month: "long" })}{" "}
-          <FontAwesomeIcon icon={faSortDown} />
+          <FontAwesomeIcon icon={faSortDown} className='icon-down-header-dateTimePicker' />
         </p>
         {openMonth && (
           <ul className='month-list-dateTimePicker'>
@@ -147,7 +154,7 @@ export default function DateTimePicker() {
         <p
           className='month-header-dateTimePicker'
           onClick={() => setOpenYear(!openYear)}>
-          {currentDate.getFullYear()} <FontAwesomeIcon icon={faSortDown} />
+          {currentDate.getFullYear()} <FontAwesomeIcon icon={faSortDown} className='icon-down-header-dateTimePicker'/>
         </p>
         {openYear && (
           <ul className='year-list-dateTimePicker'>
@@ -156,7 +163,7 @@ export default function DateTimePicker() {
                 className='li-month-list-dateTimePicker'
                 key={index}
                 onClick={() => {
-                  setCurrentDate(new Date(yearItem, month, currentDay)); // Mettre à jour l'année en conservant le mois et le jour actuels
+                  setCurrentDate(new Date(yearItem, month, currentDay));
                   setOpenYear(false);
                 }}>
                 {yearItem}
@@ -179,17 +186,21 @@ export default function DateTimePicker() {
         ))}
         {allDays.map((day, index) => (
           <div
-            className={`days-number-dateTimePicker ${
-              day.getMonth() === month ? "" : "previous-month"
-            }`}
-            key={index}
-            style={{
-              background:
-                day.getDate() === currentDay && day.getMonth() === month
-                  ? "lightblue"
-                  : "white",
-              color: day.getMonth() === month ? "black" : "gray", // Grisé pour les jours du mois précédent
-            }}>
+          className={`days-number-dateTimePicker ${day.getMonth() === month ? "" : "outside-month"}`}
+          key={index}
+          style={{
+            backgroundColor:
+              day.getDate() === currentDay && day.getMonth() === month
+                ? "lightblue" // Sélectionné
+                : day.getMonth() === month
+                ? "#f9f9f9" // Mois courant
+                : "#dfdfdf", // Autres mois
+            fontSize: "0.6em",
+          }}
+          onClick={() => {
+            setCurrentDate(new Date(day.getFullYear(), day.getMonth(), day.getDate()));
+          }}
+        >
             {day.getDate()}
           </div>
         ))}
