@@ -109,8 +109,6 @@ export default function DateTimePicker() {
     return years;
   }
 
- 
-
   return (
     <section className='container-dateTimePicker'>
       <div className='header-dateTimePicker'>
@@ -127,29 +125,41 @@ export default function DateTimePicker() {
         <p
           className='month-header-dateTimePicker'
           onClick={() => setOpenMonth(!openMonth)}>
-          {currentDate.toLocaleString("default", { month: "long" })}{" "}
+          {currentDate.toLocaleString("en-US", { month: "long" })}{" "}
           <FontAwesomeIcon icon={faSortDown} />
         </p>
         {openMonth && (
           <ul className='month-list-dateTimePicker'>
             {monthsOfYear.map((month, index) => (
-              <li className='li-month-list-dateTimePicker' key={index}>
+              <li
+                className='li-month-list-dateTimePicker'
+                key={index}
+                onClick={() => {
+                  setCurrentDate(new Date(year, index));
+                  setOpenMonth(false);
+                }}>
                 {month}
               </li>
             ))}
           </ul>
         )}
 
-        <p className='month-header-dateTimePicker' onClick={() => setOpenYear(!openYear)}>
+        <p
+          className='month-header-dateTimePicker'
+          onClick={() => setOpenYear(!openYear)}>
           {currentDate.getFullYear()} <FontAwesomeIcon icon={faSortDown} />
         </p>
         {openYear && (
-          <ul
-            className='year-list-dateTimePicker'
-            >
-            {yearsList.map((year, index) => (
-              <li className='li-month-list-dateTimePicker' key={index}>
-                {year}
+          <ul className='year-list-dateTimePicker'>
+            {yearsList.map((yearItem, index) => (
+              <li
+                className='li-month-list-dateTimePicker'
+                key={index}
+                onClick={() => {
+                  setCurrentDate(new Date(yearItem, month, currentDay)); // Mettre à jour l'année en conservant le mois et le jour actuels
+                  setOpenYear(false);
+                }}>
+                {yearItem}
               </li>
             ))}
           </ul>
