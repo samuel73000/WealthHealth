@@ -7,13 +7,29 @@ import {
   faHouse,
   faSortDown,
 } from "@fortawesome/free-solid-svg-icons";
-import { NextPlan } from "@mui/icons-material";
 
 export default function DateTimePicker() {
   const [currentDate, setCurrentDate] = React.useState(new Date());
+  const [openMonth, setOpenMonth] = React.useState(false);
+  const [openYear, setOpenYear] = React.useState(false);
   const year = currentDate.getFullYear();
+  const yearsList = generateYearsList(year, 1930); // Liste des années de 1950 à l'année actuelle
   const month = currentDate.getMonth();
-  const daysOfWeek = ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"];
+  const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+  const monthsOfYear = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
   const days = getDaysInMonth(year, month);
   const currentDay = currentDate.getDate();
   const today = new Date();
@@ -29,7 +45,6 @@ export default function DateTimePicker() {
 
     return days;
   }
-
   function getLastDaysOfPreviousMonth(year, month, count) {
     const previousMonth = month === 0 ? 11 : month - 1; // Décembre si on est en janvier
     const previousYear = month === 0 ? year - 1 : year;
@@ -51,8 +66,6 @@ export default function DateTimePicker() {
     return lastDays;
   }
 
- 
-
   // Calcul des jours vides au début
   const firstDayOfMonth = new Date(year, month, 1).getDay(); // Jour de la semaine (0 = Dimanche, 1 = Lundi, ...)
   const adjustedFirstDay = (firstDayOfMonth === 0 ? 7 : firstDayOfMonth) - 1; // Ajuster pour que lundi = 0
@@ -65,18 +78,16 @@ export default function DateTimePicker() {
   // Combine les jours du mois précédent et les jours actuels
   const allDays = [...previousMonthDays, ...days];
 
-
-
-
-
-  function nextMonth() { // function pour passer au mois suivant
+  function nextMonth() {
+    // function pour passer au mois suivant
     setCurrentDate((prevDate) => {
       const newDate = new Date(prevDate);
       newDate.setMonth(newDate.getMonth() + 1); // Passer au mois suivant
       return newDate;
     });
   }
-  function previousMonth() { // function pour revenir au mois précédent
+  function previousMonth() {
+    // function pour revenir au mois précédent
     setCurrentDate((prevDate) => {
       const newDate = new Date(prevDate);
       newDate.setMonth(newDate.getMonth() - 1); // Reculer d'un mois
@@ -84,46 +95,75 @@ export default function DateTimePicker() {
     });
   }
 
-  function dateIsToday() { // function pour revenir à la date d'aujourd'hui
+  function dateIsToday() {
+    // function pour revenir à la date d'aujourd'hui
     setCurrentDate(today);
   }
 
+  function generateYearsList(startYear, endYear) {
+    // function pour cree la liste des années (pour la slection des l'années)
+    const years = [];
+    for (let year = startYear; year >= endYear; year--) {
+      years.push(year);
+    }
+    return years;
+  }
 
-
-
-
-//   function allMonths() {
-//     const months = [];
-//     setCurrentDate((prevDate) => {
-//       for (let i = 0; i < 12; i++) {
-//         const newDate = new Date(prevDate);
-//         newDate.setMonth(prevDate.getMonth() + i);
-//         months.push(newDate.toLocaleString("default", { month: "long" }));
-//       }
-//       return prevDate; // On retourne l'état inchangé (pas nécessaire de changer la date ici)
-//     });
-//   }
-
-
+ 
 
   return (
     <section className='container-dateTimePicker'>
       <div className='header-dateTimePicker'>
-        <FontAwesomeIcon icon={faCaretLeft} onClick={previousMonth} />
-        <FontAwesomeIcon icon={faHouse} onClick={dateIsToday} />
-        <p>
+        <FontAwesomeIcon
+          icon={faCaretLeft}
+          onClick={previousMonth}
+          className='icon-header-dateTimePicker'
+        />
+        <FontAwesomeIcon
+          icon={faHouse}
+          onClick={dateIsToday}
+          className='icon-header-dateTimePicker'
+        />
+        <p
+          className='month-header-dateTimePicker'
+          onClick={() => setOpenMonth(!openMonth)}>
           {currentDate.toLocaleString("default", { month: "long" })}{" "}
           <FontAwesomeIcon icon={faSortDown} />
         </p>
-        <p>
-          {currentDate.getFullYear()} <FontAwesomeIcon icon={faSortDown}  />
+        {openMonth && (
+          <ul className='month-list-dateTimePicker'>
+            {monthsOfYear.map((month, index) => (
+              <li className='li-month-list-dateTimePicker' key={index}>
+                {month}
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <p className='month-header-dateTimePicker' onClick={() => setOpenYear(!openYear)}>
+          {currentDate.getFullYear()} <FontAwesomeIcon icon={faSortDown} />
         </p>
-        <FontAwesomeIcon icon={faCaretRight} onClick={nextMonth} />
+        {openYear && (
+          <ul
+            className='year-list-dateTimePicker'
+            >
+            {yearsList.map((year, index) => (
+              <li className='li-month-list-dateTimePicker' key={index}>
+                {year}
+              </li>
+            ))}
+          </ul>
+        )}
+        <FontAwesomeIcon
+          icon={faCaretRight}
+          onClick={nextMonth}
+          className='icon-header-dateTimePicker'
+        />
       </div>
 
       <div className='container-days-dateTimePicker'>
         {daysOfWeek.map((day) => (
-          <div className='days-number-dateTimePicker' key={day}>
+          <div className='days-week-number-dateTimePicker' key={day}>
             {day}
           </div>
         ))}
