@@ -116,6 +116,29 @@ export default function DateTimePicker() {
     return years;
   }
 
+
+
+
+
+
+
+
+
+ const finalDate = new Intl.DateTimeFormat("en-US", { day: "2-digit", month: "2-digit", year: "numeric" }).format(currentDate);
+  console.log(finalDate);
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <section className='container-dateTimePicker'>
       <div className='header-dateTimePicker'>

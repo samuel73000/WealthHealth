@@ -8,19 +8,24 @@ import * as React from "react";
 import States from "../../data/States";
 import DateTimePicker from "../../Components/DateTimePicker/DateTimePicker";
 
+
 export default function CreateEmployee() {
   const [Department, setDepartment] = React.useState("");
   const [State, setState] = React.useState("");
-  const handleChangeDepartment = (e, SelectChangeEvent) => {
+  const [openCalendar , setOpenCalendar] = React.useState(false);
+
+  const handleChangeDepartment = (e, SelectChangeEvent) => {//function to change the department
     setDepartment(e.target.value);
   };
-  const handleChangeState = (e, SelectChangeEvent) => {
+  const handleChangeState = (e, SelectChangeEvent) => { // function to change the state
     setState(e.target.value);
   };
 
+
+
   return (
     <main className='main-create-employee'>
-      <form className='container-create-employee'>
+      <form className='container-create-employee' >
         <h2>Create Employee</h2>
         <TextField id='outlined-basic' label='First Name' variant='outlined' />
         <TextField id='outlined-basic' label='Last Name' variant='outlined' />
@@ -28,7 +33,12 @@ export default function CreateEmployee() {
           id='outlined-basic'
           label='Date of Birth'
           variant='outlined'
+          onClick={() => setOpenCalendar(!openCalendar)}
+          className={openCalendar ? 'input-date' : ''}
         />
+        {openCalendar && (
+        <DateTimePicker />
+        )}
         <TextField id='outlined-basic' label='Start Date' variant='outlined' />
       </form>
       <form className='container-create-employee'>
@@ -64,7 +74,6 @@ export default function CreateEmployee() {
           </Select>
         </FormControl>
       </form>
-      <DateTimePicker />
     </main>
   );
 }
