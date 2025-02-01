@@ -7,8 +7,12 @@ import {
   faHouse,
   faSortDown,
 } from "@fortawesome/free-solid-svg-icons";
+import { TextField } from "@mui/material";
+import InputAdornment from "@mui/material/InputAdornment";
 
-export default function DateTimePicker() {
+export default function DateTimePicker(props) {
+  const calendarRef = React.useRef(null);
+  const [openCalendar, setOpenCalendar] = React.useState(false);
   const [currentDate, setCurrentDate] = React.useState(new Date());
   const [openMonth, setOpenMonth] = React.useState(false);
   const [openYear, setOpenYear] = React.useState(false);
@@ -116,118 +120,138 @@ export default function DateTimePicker() {
     return years;
   }
 
+  React.useEffect(() => {
+    // Fonction pour fermer le calendrier lorsqu'on clique en dehors
+    function handleClickOutside(event) {
+      if (calendarRef.current && !calendarRef.current.contains(event.target)) {
+        setOpenCalendar(false);
+      }
+    }
 
+    if (openCalendar) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
 
-
-
-
-
-
-
- const finalDate = new Intl.DateTimeFormat("en-US", { day: "2-digit", month: "2-digit", year: "numeric" }).format(currentDate);
-  console.log(finalDate);
-
-
-
-
-
-
-
-
-
-
-
-
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [openCalendar]);
 
   return (
-    <section className='container-dateTimePicker'>
-      <div className='header-dateTimePicker'>
-        <FontAwesomeIcon
-          icon={faCaretLeft}
-          onClick={previousMonth}
-          className='icon-header-dateTimePicker'
-        />
-        <FontAwesomeIcon
-          icon={faHouse}
-          onClick={dateIsToday}
-          className='icon-header-dateTimePicker'
-        />
-        <p
-          className='month-header-dateTimePicker'
-          onClick={() => setOpenMonth(!openMonth)}>
-          {currentDate.toLocaleString("en-US", { month: "long" })}{" "}
-          <FontAwesomeIcon icon={faSortDown} className='icon-down-header-dateTimePicker' />
-        </p>
-        {openMonth && (
-          <ul className='month-list-dateTimePicker'>
-            {monthsOfYear.map((month, index) => (
-              <li
-                className='li-month-list-dateTimePicker'
-                key={index}
-                onClick={() => {
-                  setCurrentDate(new Date(year, index));
-                  setOpenMonth(false);
-                }}>
-                {month}
-              </li>
-            ))}
-          </ul>
-        )}
+    <section className='container-all-dateTimePicker'>
+      <TextField
+        id={props.id}
+        label={props.label}
+        variant='outlined'
+        value={currentDate.toLocaleDateString("en-US")}
+        onClick={() => setOpenCalendar(!openCalendar)}
+        slotProps={{
+          input: {
+            startAdornment: <InputAdornment position='start'></InputAdornment>,
+          },
+        }}
+      />
+      {openCalendar && (
+        <div ref={calendarRef} className='container-dateTimePicker'>
+          <div className='header-dateTimePicker'>
+            <FontAwesomeIcon
+              icon={faCaretLeft}
+              onClick={previousMonth}
+              className='icon-header-dateTimePicker'
+            />
+            <FontAwesomeIcon
+              icon={faHouse}
+              onClick={dateIsToday}
+              className='icon-header-dateTimePicker'
+            />
+            <p
+              className='month-header-dateTimePicker'
+              onClick={() => setOpenMonth(!openMonth)}>
+              {currentDate.toLocaleString("en-US", { month: "long" })}{" "}
+              <FontAwesomeIcon
+                icon={faSortDown}
+                className='icon-down-header-dateTimePicker'
+              />
+            </p>
+            {openMonth && (
+              <ul className='month-list-dateTimePicker'>
+                {monthsOfYear.map((month, index) => (
+                  <li
+                    className='li-month-list-dateTimePicker'
+                    key={index}
+                    onClick={() => {
+                      setCurrentDate(new Date(year, index));
+                      setOpenMonth(false);
+                    }}>
+                    {month}
+                  </li>
+                ))}
+              </ul>
+            )}
 
-        <p
-          className='month-header-dateTimePicker'
-          onClick={() => setOpenYear(!openYear)}>
-          {currentDate.getFullYear()} <FontAwesomeIcon icon={faSortDown} className='icon-down-header-dateTimePicker'/>
-        </p>
-        {openYear && (
-          <ul className='year-list-dateTimePicker'>
-            {yearsList.map((yearItem, index) => (
-              <li
-                className='li-month-list-dateTimePicker'
-                key={index}
-                onClick={() => {
-                  setCurrentDate(new Date(yearItem, month, currentDay));
-                  setOpenYear(false);
-                }}>
-                {yearItem}
-              </li>
-            ))}
-          </ul>
-        )}
-        <FontAwesomeIcon
-          icon={faCaretRight}
-          onClick={nextMonth}
-          className='icon-header-dateTimePicker'
-        />
-      </div>
+            <p
+              className='month-header-dateTimePicker'
+              onClick={() => setOpenYear(!openYear)}>
+              {currentDate.getFullYear()}{" "}
+              <FontAwesomeIcon
+                icon={faSortDown}
+                className='icon-down-header-dateTimePicker'
+              />
+            </p>
+            {openYear && (
+              <ul className='year-list-dateTimePicker'>
+                {yearsList.map((yearItem, index) => (
+                  <li
+                    className='li-month-list-dateTimePicker'
+                    key={index}
+                    onClick={() => {
+                      setCurrentDate(new Date(yearItem, month, currentDay));
+                      setOpenYear(false);
+                    }}>
+                    {yearItem}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <FontAwesomeIcon
+              icon={faCaretRight}
+              onClick={nextMonth}
+              className='icon-header-dateTimePicker'
+            />
+          </div>
 
-      <div className='container-days-dateTimePicker'>
-        {daysOfWeek.map((day) => (
-          <div className='days-week-number-dateTimePicker' key={day}>
-            {day}
+          <div className='container-days-dateTimePicker'>
+            {daysOfWeek.map((day) => (
+              <div className='days-week-number-dateTimePicker' key={day}>
+                {day}
+              </div>
+            ))}
+            {allDays.map((day, index) => (
+              <div
+                className={`days-number-dateTimePicker ${
+                  day.getMonth() === month ? "" : "outside-month"
+                }`}
+                key={index}
+                style={{
+                  backgroundColor:
+                    day.getDate() === currentDay && day.getMonth() === month
+                      ? "lightblue" // Sélectionné
+                      : day.getMonth() === month
+                      ? "#f9f9f9" // Mois courant
+                      : "#dfdfdf", // Autres mois
+                  fontSize: "0.6em",
+                }}
+                onClick={() => {
+                  setCurrentDate(
+                    new Date(day.getFullYear(), day.getMonth(), day.getDate())
+                  );
+                }}>
+                {day.getDate()}
+              </div>
+            ))}
           </div>
-        ))}
-        {allDays.map((day, index) => (
-          <div
-          className={`days-number-dateTimePicker ${day.getMonth() === month ? "" : "outside-month"}`}
-          key={index}
-          style={{
-            backgroundColor:
-              day.getDate() === currentDay && day.getMonth() === month
-                ? "lightblue" // Sélectionné
-                : day.getMonth() === month
-                ? "#f9f9f9" // Mois courant
-                : "#dfdfdf", // Autres mois
-            fontSize: "0.6em",
-          }}
-          onClick={() => {
-            setCurrentDate(new Date(day.getFullYear(), day.getMonth(), day.getDate()));
-          }}
-        >
-            {day.getDate()}
-          </div>
-        ))}
-      </div>
+        </div>
+      )}
     </section>
   );
 }

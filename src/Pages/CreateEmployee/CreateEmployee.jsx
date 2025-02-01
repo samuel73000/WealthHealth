@@ -12,7 +12,6 @@ import DateTimePicker from "../../Components/DateTimePicker/DateTimePicker";
 export default function CreateEmployee() {
   const [Department, setDepartment] = React.useState("");
   const [State, setState] = React.useState("");
-  const [openCalendar , setOpenCalendar] = React.useState(false);
 
   const handleChangeDepartment = (e, SelectChangeEvent) => {//function to change the department
     setDepartment(e.target.value);
@@ -29,17 +28,8 @@ export default function CreateEmployee() {
         <h2>Create Employee</h2>
         <TextField id='outlined-basic' label='First Name' variant='outlined' />
         <TextField id='outlined-basic' label='Last Name' variant='outlined' />
-        <TextField
-          id='outlined-basic'
-          label='Date of Birth'
-          variant='outlined'
-          onClick={() => setOpenCalendar(!openCalendar)}
-          className={openCalendar ? 'input-date' : ''}
-        />
-        {openCalendar && (
-        <DateTimePicker />
-        )}
-        <TextField id='outlined-basic' label='Start Date' variant='outlined' />
+        <DateTimePicker label='Date of Birth' id="Date-of-Birth"/>
+        <DateTimePicker label='Start Date' id="Start-Date"/>
       </form>
       <form className='container-create-employee'>
         <fieldset className='container-create-employee'>

@@ -1,3 +1,11 @@
+.container-all-dateTimePicker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
 .container-dateTimePicker {
   width: 260px;
   height: 180px;
