@@ -1,5 +1,6 @@
 import "./CreateEmployee.css";
 import { TextField } from "@mui/material";
+import Button from '@mui/material/Button';
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
@@ -63,6 +64,7 @@ export default function CreateEmployee() {
             <MenuItem value={60}>Legal</MenuItem>
           </Select>
         </FormControl>
+        <Button variant="contained">Save</Button>
       </form>
     </main>
   );
