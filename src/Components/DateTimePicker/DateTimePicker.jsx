@@ -17,8 +17,10 @@ export default function DateTimePicker(props) {
   const [selectedDate, setSelectedDate] = React.useState(null);
   const [openMonth, setOpenMonth] = React.useState(false);
   const [openYear, setOpenYear] = React.useState(false);
-  const year = currentDate ? currentDate.getFullYear() : new Date().getFullYear();
-const month = currentDate ? currentDate.getMonth() : new Date().getMonth();
+  const year = currentDate
+    ? currentDate.getFullYear()
+    : new Date().getFullYear();
+  const month = currentDate ? currentDate.getMonth() : new Date().getMonth();
   const yearsList = generateYearsList(year, 1930); // Liste des années de 1950 à l'année actuelle
   const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const monthsOfYear = [
@@ -243,7 +245,9 @@ const month = currentDate ? currentDate.getMonth() : new Date().getMonth();
                   fontSize: "0.6em",
                 }}
                 onClick={() => {
-                  setSelectedDate(new Date(day.getFullYear(), day.getMonth(), day.getDate()));
+                  setSelectedDate(
+                    new Date(day.getFullYear(), day.getMonth(), day.getDate())
+                  );
                   setOpenCalendar(false); // Fermer après sélection
                 }}>
                 {day.getDate()}
