@@ -6,8 +6,19 @@ header{
     width: 100%;
     border-bottom: 1px solid #000;
 }
+.no-underline {
+    text-decoration: none;
+    color: #000;
+  }
 .titre-header{
     font-size: 2em;
     font-weight: bold;
     margin-left: 1%;
+}
+.header-buttons{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 1%;
+    gap: 20px;
 }

@@ -1,10 +1,28 @@
 import "./Header.css";
-import {Button} from "@mui/material";
+import { Button } from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
+
 export default function Header() {
+  const location = useLocation(); // Récupère l'objet location
+
   return (
     <header>
-      <h1 className="titre-header">HRnet</h1>
-      <Button variant="outlined" sx={{marginRight: "1%"}}>View Current Employees</Button>
+      <Link to="/" className="no-underline">
+        <h1 className="titre-header">HRnet</h1>
+      </Link>
+      <div className="header-buttons">
+        {/* Vérifie location.pathname au lieu de location */}
+        {location.pathname !== "/CreateEmployee" && (
+          <Link to="/CreateEmployee">
+            <Button variant="outlined">Create new Employees</Button>
+          </Link>
+        )}
+        {location.pathname !== "/EmployeeList" && (
+          <Link to="/EmployeeList">
+            <Button variant="outlined">View Current Employees</Button>
+          </Link>
+        )}
+      </div>
     </header>
   );
 }

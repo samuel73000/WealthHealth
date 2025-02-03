@@ -22,7 +22,7 @@ export default function CreateEmployee() {
   };
 
   return (
-    <main className='main-create-employee'>
+    <section className='main-create-employee'>
       <form className='container-create-employee'>
         <h2>Create Employee</h2>
         <TextField id='outlined-basic' label='First Name' variant='outlined' />
@@ -64,6 +64,6 @@ export default function CreateEmployee() {
         </FormControl>     
         <PortalModal />   
       </form>
-    </main>
+    </section>
   );
 }
