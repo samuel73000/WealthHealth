@@ -13,7 +13,7 @@ header{
 .titre-header{
     font-size: 2em;
     font-weight: bold;
-    margin-left:20%;
+    margin-left:1%;
 }
 .header-buttons{
     display: flex;

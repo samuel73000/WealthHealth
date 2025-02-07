@@ -7,13 +7,11 @@ export default function Header() {
 
   return (
     <header>
-      <Link to="/" className="no-underline">
         <h1 className="titre-header">HRnet</h1>
-      </Link>
       <div className="header-buttons">
         {/* Vérifie location.pathname au lieu de location */}
-        {location.pathname !== "/CreateEmployee" && (
-          <Link to="/CreateEmployee">
+        {location.pathname !== "/" && (
+          <Link to="/">
             <Button variant="outlined">Create new Employees</Button>
           </Link>
         )}
