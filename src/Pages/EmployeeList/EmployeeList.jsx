@@ -1,80 +1,116 @@
 import "./EmployeeList.css";
-import * as React from 'react';
-import { DataGrid } from '@mui/x-data-grid';
-import Paper from '@mui/material/Paper';
-import { width } from "@fortawesome/free-solid-svg-icons/fa0";
+import React, { useState } from "react";
+import { DataGrid } from "@mui/x-data-grid";
+import { Paper, TextField } from "@mui/material";
+import data from "../../data/Employee";
 
 export default function EmployeeList() {
+  const columns = [
+    {
+      field: "firstName",
+      headerName: "First name",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "lastName",
+      headerName: "Last name",
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+        field: "StartDate",
+        headerName: "Start Date",
+        flex: 1,
+        headerAlign: "center",
+        align: "center",
+        sortComparator: (v1, v2) => new Date(v1.split('/').reverse().join('-')) - new Date(v2.split('/').reverse().join('-'))
+      },
+    {
+      field: "Department",
+      headerName: "Department",
 
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+        field: "DateOfBirth",
+        headerName: "Date Of Birth",
+        flex: 1,
+        headerAlign: "center",
+        align: "center",
+        sortComparator: (v1, v2) => new Date(v1.split('/').reverse().join('-')) - new Date(v2.split('/').reverse().join('-'))
+      },
+    {
+      field: "Street",
+      headerName: "Street",
 
-    const columns = [
-        { field: 'firstName', headerName: 'First name', width: 130 },
-        { field: 'lastName', headerName: 'Last name', width: 130 },
-        {
-          field: 'StartDate',
-          headerName: 'Start Date',
-          type: 'number',
-          width: 100,
-        },
-        {
-            field:"Department",
-            headerName:"Department",
-            width: 130
-        },
-        {
-            field:"DateOfBirth",
-            headerName:"Date Of Birth",
-            type: 'number',
-            width: 130
-        },
-        {
-            field:"Street",
-            headerName:"Street",
-            width: 130
-        },
-        {
-         field:"City",
-            headerName:"City",
-            width: 130
-        },
-        {
-            field:"State",
-               headerName:"State",
-               width: 130
-           },
-           {
-            field:"ZipCode",
-               headerName:"Zip Code",
-               width: 130
-           },
-        
-      ];
-      
-      const data = [
-        { id: 1, lastName: 'Snow', firstName: 'Jon', StartDate: 1 , Department: "Sales", DateOfBirth: 20, Street: "1234 Main St" ,City: "Winterfell" ,State: "CA",ZipCode: 12345},
-        { id: 2, lastName: 'Lannister', firstName: 'Cersei', StartDate: 42 , Department: "Sales",DateOfBirth: 20,Street: "1234 Main St",City: "Winterfell",State: "CA",ZipCode: 12345},
-        { id: 3, lastName: 'Lannister', firstName: 'Jaime', StartDate: 45, Department: "Sales",DateOfBirth: 20 ,Street: "1234 Main St",City: "Winterfell",State: "CA",ZipCode: 12345},
-        { id: 4, lastName: 'Stark', firstName: 'Arya', StartDate: 16 , Department: "Sales",DateOfBirth: 20 ,Street: "1234 Main St",City: "Winterfell",State: "CA",ZipCode: 12345},
-        { id: 5, lastName: 'Targaryen', firstName: 'Daenerys', StartDate: null , Department: "Sales",DateOfBirth: 20,Street: "1234 Main St",City: "Winterfell",State: "CA",ZipCode: 12345},
-        { id: 6, lastName: 'Melisandre', firstName: null, StartDate: 150, Department: "Sales",DateOfBirth: 20 ,Street: "1234 Main St",City: "Winterfell",State: "CA",ZipCode: 12345},
-        { id: 7, lastName: 'Clifford', firstName: 'Ferrara', StartDate: 44, Department: "Sales",DateOfBirth: 20,Street: "1234 Main St" ,City: "Winterfell",State: "CA",ZipCode: 12345},
-        { id: 8, lastName: 'Frances', firstName: 'Rossini', StartDate: 36, Department: "Sales",DateOfBirth: 20 ,Street: "1234 Main St",City: "Winterfell",State: "CA",ZipCode: 12345},
-        { id: 9, lastName: 'Roxie', firstName: 'Harvey', StartDate: 65 , Department: "Sales",DateOfBirth: 20,Street: "1234 Main St",City: "Winterfell",State: "CA",ZipCode: 12345},
-      ];
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "City",
+      headerName: "City",
 
-      const paginationModel = { page: 0, pageSize: 5 };
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "State",
+      headerName: "State",
 
-    return (
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+    {
+      field: "ZipCode",
+      headerName: "Zip Code",
 
-        <Paper sx={{ height: 400, width: '100%' }}>
+      flex: 1,
+      headerAlign: "center",
+      align: "center",
+    },
+  ];
+
+  const [search, setSearch] = useState("");
+  // Fonction de filtrage
+  const filteredEmployees = data.filter((data) =>
+    `${data.firstName} ${data.lastName} ${data.StartDate} ${data.Department} ${data.DateOfBirth} ${data.Street} ${data.City} ${data.State} ${data.ZipCode}`
+      .toLowerCase()
+      .toLowerCase()
+      .includes(search.toLowerCase())
+  );
+
+  const paginationModel = { page: 0, pageSize: 5 };
+
+  return (
+    <section className='main-employee-list'>
+      <h2>Current Employees</h2>
+      <TextField
+        label='Rechercher...'
+        variant='outlined'
+        fullWidth
+        margin='normal'
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+
+      <Paper sx={{ height: "100%", width: "100%" }}>
         <DataGrid
-          rows={data}
+          rows={filteredEmployees}
           columns={columns}
           initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 10 ,20 , 50 ,100]}
-
+          pageSizeOptions={[5, 10, 20, 50, 100]}
           sx={{ border: 0 }}
+          rowSelection={false}
         />
       </Paper>
-    )
+    </section>
+  );
 }
