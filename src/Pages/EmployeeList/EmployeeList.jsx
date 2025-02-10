@@ -87,26 +87,25 @@ export default function EmployeeList() {
       .includes(search.toLowerCase())
   );
 
-  const paginationModel = { page: 0, pageSize: 5 };
+  const paginationModel = { page: 0, pageSize: 15 };
 
   return (
     <section className='main-employee-list'>
       <h2>Current Employees</h2>
       <TextField
-        label='Rechercher...'
+        label='Search'
         variant='outlined'
         fullWidth
         margin='normal'
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
-
       <Paper sx={{ height: "100%", width: "100%" }}>
         <DataGrid
           rows={filteredEmployees}
           columns={columns}
           initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 10, 20, 50, 100]}
+          pageSizeOptions={[15,20, 50, 100]}
           sx={{ border: 0 }}
           rowSelection={false}
         />
