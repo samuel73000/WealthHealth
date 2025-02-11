@@ -23,27 +23,40 @@ export default function CreateEmployee() {
 
 
 
- // Fonction à passer en prop
- const handleOpen = () => {
-const firstName = document.getElementById('firstName').value;
-const lastName = document.getElementById('lastName').value;
-const dateOfBirth = document.getElementById('Date-of-Birth').value;
-const startDate = document.getElementById('Start-Date').value;
-const street = document.getElementById('street').value;
-const city = document.getElementById('city').value;
-const state = document.getElementById('state').value;
-const zipcode = document.getElementById('zipcode').value;
-const department = document.getElementById('department').value;
-console.log('First Name: ' + firstName);
-console.log('Last Name: ' + lastName);
-console.log('Date of Birth: ' + dateOfBirth);
-console.log('Start Date: ' + startDate);
-console.log('Street: ' + street);
-console.log('City: ' + city);
-console.log('State: ' + state);
-console.log('Zip Code: ' + zipcode);
-console.log('Department: ' + department);
-};
+
+
+
+
+
+  // Fonction à passer en prop
+  const handleOpen = () => {
+    const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
+    const dateOfBirth = document.getElementById("Date-of-Birth").value;
+    const startDate = document.getElementById("Start-Date").value;
+    const street = document.getElementById("street").value;
+    const city = document.getElementById("city").value;
+    const state = document.getElementById("state").value;
+    const zipcode = document.getElementById("zipcode").value;
+    const department = document.getElementById("department").value;
+    console.log("First Name: " + firstName);
+    console.log("Last Name: " + lastName);
+    console.log("Date of Birth: " + dateOfBirth);
+    console.log("Start Date: " + startDate);
+    console.log("Street: " + street);
+    console.log("City: " + city);
+    console.log("State: " + state);
+    console.log("Zip Code: " + zipcode);
+    console.log("Department: " + department);
+  };
+
+
+
+
+
+  
+  
+
 
 
 
@@ -51,36 +64,38 @@ console.log('Department: ' + department);
 
   return (
     <section className='main-create-employee'>
-      <form className='container-create-employee'>
-        <h2>Create Employee</h2>
-        <TextField id='firstName' label='First Name' variant='outlined' />
-        <TextField id='lastName' label='Last Name' variant='outlined' />
+      <h2 className="title-create-employee">Create Employee</h2>
+      <form>
+      <div className='container-create-employee'>
+        <TextField id='firstName' label='First Name' variant='outlined' sx={{ width: '80%' }} />
+        <TextField id='lastName' label='Last Name' variant='outlined' sx={{ width: '80%' }} />
+        </div>
+        <div className='container-create-employee'>
         <DateTimePicker label='Date of Birth' id='Date-of-Birth' />
         <DateTimePicker label='Start Date' id='Start-Date' />
-      </form>
-      <form className='container-create-employee'>
-        <fieldset className='container-create-employee'>
-          <legend>Address</legend>
-          <TextField id='street' label='Street' variant='outlined' />
-          <TextField id='city' label='City' variant='outlined' />
-
-          <FormControl sx={{ m: 1, minWidth: 250 }}>
+      </div>
+      <div className='container-create-employee'>
+          <TextField id='street' label='Street' variant='outlined' sx={{ width: '80%' }} />
+          <TextField id='city' label='City' variant='outlined' sx={{ width: '80%' }} />
+      </div>
+          <div className='container-create-employee'>
+          <FormControl sx={{ m: 1, minWidth: 250  ,width: '80%'}}>
             <InputLabel>State</InputLabel>
-            <Select value={State} label='State'id="state" onChange={handleChangeState}>
+            <Select
+              value={State}
+              label='State'
+              id='state'
+              onChange={handleChangeState}>
               {States.map((States, index) => (
                 <MenuItem value={index}>{States.name}</MenuItem>
               ))}
             </Select>
           </FormControl>
-
-          <TextField id='zipcode' label='Zip Code' variant='outlined' />
-        </fieldset>
-      </form>
-      <form className='container-create-employee'>
-        <FormControl sx={{ m: 1, minWidth: 250 }}>
+          <TextField id='zipcode' label='Zip Code' variant='outlined' sx={{ width: '80%' }} />
+          <FormControl sx={{ m: 1, minWidth: 250 ,width: '80%'}}>
           <InputLabel>Department</InputLabel>
           <Select
-           id="department"
+            id='department'
             value={Department}
             label='Department'
             onChange={handleChangeDepartment}>
@@ -90,8 +105,11 @@ console.log('Department: ' + department);
             <MenuItem value={50}>Human Resources</MenuItem>
             <MenuItem value={60}>Legal</MenuItem>
           </Select>
-        </FormControl>     
-        <PortalModal onOpen={handleOpen} />   
+        </FormControl>
+      </div>
+      <div className='container-create-employee'>
+        <PortalModal onOpen={handleOpen} />
+      </div>
       </form>
     </section>
   );
