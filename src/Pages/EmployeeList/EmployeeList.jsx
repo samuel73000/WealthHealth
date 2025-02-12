@@ -3,85 +3,21 @@ import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Paper, TextField } from "@mui/material";
 import data from "../../data/Employee";
+import { useSelector } from 'react-redux';
+import columnsConfig from "../../data/columnsConfig";
+
 
 export default function EmployeeList() {
-  const columns = [
-    {
-      field: "firstName",
-      headerName: "First name",
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-      field: "lastName",
-      headerName: "Last name",
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-        field: "StartDate",
-        headerName: "Start Date",
-        flex: 1,
-        headerAlign: "center",
-        align: "center",
-        sortComparator: (v1, v2) => new Date(v1.split('/').reverse().join('-')) - new Date(v2.split('/').reverse().join('-'))
-      },
-    {
-      field: "Department",
-      headerName: "Department",
+  
 
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-        field: "DateOfBirth",
-        headerName: "Date Of Birth",
-        flex: 1,
-        headerAlign: "center",
-        align: "center",
-        sortComparator: (v1, v2) => new Date(v1.split('/').reverse().join('-')) - new Date(v2.split('/').reverse().join('-'))
-      },
-    {
-      field: "Street",
-      headerName: "Street",
-
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-      field: "City",
-      headerName: "City",
-
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-      field: "State",
-      headerName: "State",
-
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-    },
-    {
-      field: "ZipCode",
-      headerName: "Zip Code",
-
-      flex: 1,
-      headerAlign: "center",
-      align: "center",
-    },
-  ];
 
   const [search, setSearch] = useState("");
+  const employees = useSelector((state) => state.employee.employees);
   // Fonction de filtrage
-  const filteredEmployees = data.filter((data) =>
-    `${data.firstName} ${data.lastName} ${data.StartDate} ${data.Department} ${data.DateOfBirth} ${data.Street} ${data.City} ${data.State} ${data.ZipCode}`
+
+  // mettre data a la place de employees pour afficher les données fictifs
+  const filteredEmployees = data.filter((data) => 
+    `${data.FirstName} ${data.LastName} ${data.StartDate} ${data.Department} ${data.DateOfBirth} ${data.Street} ${data.City} ${data.State} ${data.ZipCode}`
       .toLowerCase()
       .toLowerCase()
       .includes(search.toLowerCase())
@@ -103,7 +39,8 @@ export default function EmployeeList() {
       <Paper sx={{ height: "100%", width: "100%" }}>
         <DataGrid
           rows={filteredEmployees}
-          columns={columns}
+        
+          columns={columnsConfig}
           initialState={{ pagination: { paginationModel } }}
           pageSizeOptions={[15,20, 50, 100]}
           sx={{ border: 0 }}

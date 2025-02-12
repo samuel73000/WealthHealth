@@ -10,48 +10,48 @@ import DateTimePicker from "../../Components/DateTimePicker/DateTimePicker";
 import PortalModal from "../../Components/PortalModal/PortalModal";
 
 import { useDispatch } from "react-redux";
-import { setEmployee } from "../../Redux/Features/EmployeeSlice";
+import { addEmployee } from "../../Redux/Features/EmployeeSlice";
 
 export default function CreateEmployee() {
   const dispatch = useDispatch();
   // États locaux du formulaire
-  const [department, setDepartment] = React.useState("");
-  const [state, setState] = React.useState("");
-  const [firstName, setFirstName] = React.useState("");
-  const [lastName, setLastName] = React.useState("");
-  const [dateOfBirth, setDateOfBirth] = React.useState("");
-  const [startDate, setStartDate] = React.useState("");
-  const [street, setStreet] = React.useState("");
-  const [city, setCity] = React.useState("");
-  const [zipCode, setZipCode] = React.useState("");
+  const [Department, setDepartment] = React.useState("");
+  const [State, setState] = React.useState("");
+  const [FirstName, setFirstName] = React.useState("");
+  const [LastName, setLastName] = React.useState("");
+  const [DateOfBirth, setDateOfBirth] = React.useState("");
+  const [StartDate, setStartDate] = React.useState("");
+  const [Street, setStreet] = React.useState("");
+  const [City, setCity] = React.useState("");
+  const [ZipCode, setZipCode] = React.useState("");
 
 
 
 
 
   const handleOpen = (e) => {
-    const dateOfBirth = document.getElementById("Date-of-Birth").value;
-    const startDate = document.getElementById("Start-Date").value;
-    setDateOfBirth(dateOfBirth);
-    setStartDate(startDate);
+    const DateOfBirth = document.getElementById("Date-of-Birth").value;
+    const StartDate = document.getElementById("Start-Date").value;
+    setDateOfBirth(DateOfBirth);
+    setStartDate(StartDate);
 
     // Vérifier les données envoyées
     const employeeData = {
-      firstName,
-      lastName,
-      dateOfBirth,
-      startDate,
-      street,
-      city,
-      state,
-      zipCode,
-      department,
+      FirstName,
+      LastName,
+      DateOfBirth,
+      StartDate,
+      Street,
+      City,
+      State,
+      ZipCode,
+      Department,
     };
 
     console.log("Données envoyées à Redux :", employeeData);
 
     // Dispatch des données dans Redux
-    dispatch(setEmployee(employeeData));
+    dispatch(addEmployee(employeeData));
 
     // Réinitialisation du formulaire
     setFirstName("");
@@ -64,10 +64,29 @@ export default function CreateEmployee() {
     setZipCode("");
     setDepartment("");
   };
-
-
-
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
     <section className='main-create-employee'>
       <div className='container-all-create-employee'>
@@ -93,13 +112,13 @@ export default function CreateEmployee() {
             <DateTimePicker
               label='Date of Birth'
               id='Date-of-Birth'
-              value={dateOfBirth}
+              value={DateOfBirth}
             />
 
             <DateTimePicker
               label='Start Date'
               id='Start-Date'
-              value={startDate}
+              value={StartDate}
             />
           </div>
           <div className='container-create-employee'>
@@ -121,7 +140,7 @@ export default function CreateEmployee() {
             <FormControl sx={{ m: 1, minWidth: 250, width: "80%" }}>
               <InputLabel>State</InputLabel>
               <Select
-                value={state}
+                value={State}
                 label='State'
                 id='state'
                 onChange={(e) => setState(e.target.value)}
@@ -150,7 +169,7 @@ export default function CreateEmployee() {
               <InputLabel>Department</InputLabel>
               <Select
                 id='department'
-                value={department}
+                value={Department}
                 label='Department'
                 onChange={(e) => setDepartment(e.target.value)}>
                 <MenuItem value={"Sales"}>Sales</MenuItem>
@@ -163,8 +182,6 @@ export default function CreateEmployee() {
           </div>
           <div className='container-create-employee'>
             <PortalModal onOpen={handleOpen} />
-            {/* <button className='button-create-employee' onClick={handleOpen}>
-              Create Employee </button> */}
           </div>
         </form>
       </div>
