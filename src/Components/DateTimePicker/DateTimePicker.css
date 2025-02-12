@@ -8,6 +8,9 @@
 }
 
 .container-dateTimePicker {
+  position: absolute;
+  z-index: 100;
+  margin-top: 265px;
   width: 260px;
   height: 180px;
   background-color: white;
