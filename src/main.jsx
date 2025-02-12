@@ -6,8 +6,11 @@ import Header from "./Components/Header/Header";
 import CreateEmployee from "./Pages/CreateEmployee/CreateEmployee";
 import Footer from "./Components/Footer/Footer";
 import EmployeeList from "./Pages/EmployeeList/EmployeeList";
+import { Provider } from "react-redux";
+import store from "./Redux/Store";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
+     <Provider store={store}>
     <Router>
     <Header />
     <main>
@@ -19,5 +22,6 @@ createRoot(document.getElementById("root")).render(
     </main>
     <Footer />
     </Router>
+    </Provider>
   </StrictMode>
 );
