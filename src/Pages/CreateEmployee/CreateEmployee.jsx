@@ -86,7 +86,6 @@ export default function CreateEmployee() {
     return true; // Retourne true si tout est OK
   };
 
-
   
   
   return (
@@ -100,7 +99,7 @@ export default function CreateEmployee() {
               id='firstName'
               label='First Name'
               variant='outlined'
-              sx={{ width: "80%" }}
+              sx={{ width: "100%" }}
               error={error && !FirstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
@@ -109,7 +108,7 @@ export default function CreateEmployee() {
               id='lastName'
               label='Last Name'
               variant='outlined'
-              sx={{ width: "80%" }}
+              sx={{ width: "100%" }}
               error={error && !LastName}
               onChange={(e) => setLastName(e.target.value)}
             />
@@ -135,7 +134,7 @@ export default function CreateEmployee() {
               id='street'
               label='Street'
               variant='outlined'
-              sx={{ width: "80%" }}
+              sx={{ width: "100%" }}
               onChange={(e) => setStreet(e.target.value)}
               error={error && !Street}
             />
@@ -143,7 +142,7 @@ export default function CreateEmployee() {
             value={City}
               label='City'
               variant='outlined'
-              sx={{ width: "80%" }}
+              sx={{ width: "100%" }}
               onChange={(e) => setCity(e.target.value)}
               error={error && !City}
             />
@@ -152,6 +151,7 @@ export default function CreateEmployee() {
             <FormControl sx={{ m: 1, minWidth: 250, width: "80%" }}>
               <InputLabel>State</InputLabel>
               <Select
+              sx={{ width: "100%" }}
               error={error && !State}
                 value={State}
                 label='State'
@@ -177,12 +177,13 @@ export default function CreateEmployee() {
             error={error && !ZipCode}
               label='Zip Code'
               variant='outlined'
-              sx={{ width: "80%" }}
+              sx={{ width: "100%" }}
               onChange={(e) => setZipCode(e.target.value)}
             />
             <FormControl sx={{ m: 1, minWidth: 250, width: "80%" }}>
               <InputLabel>Department</InputLabel>
               <Select
+              sx={{ width: "100%" }}
               error={error && !Department}
                 id='department'
                 value={Department}

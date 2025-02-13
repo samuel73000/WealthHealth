@@ -8,7 +8,7 @@ export default function Header() {
   return (
     <header>
         <h1 className="titre-header">HRnet</h1>
-      <div className="header-buttons">
+      <div className="header-container-buttons">
         {/* Vérifie location.pathname au lieu de location */}
         {location.pathname !== "/" && (
           <Link to="/">

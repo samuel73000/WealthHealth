@@ -3,20 +3,16 @@ import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Paper, TextField } from "@mui/material";
 import data from "../../data/Employee";
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux";
 import columnsConfig from "../../data/columnsConfig";
 
-
 export default function EmployeeList() {
-  
-
-
   const [search, setSearch] = useState("");
   const employees = useSelector((state) => state.employee.employees);
   // Fonction de filtrage
 
   // mettre data a la place de employees pour afficher les données fictifs
-  const filteredEmployees = employees.filter((data) => 
+  const filteredEmployees = data.filter((data) =>
     `${data.FirstName} ${data.LastName} ${data.StartDate} ${data.Department} ${data.DateOfBirth} ${data.Street} ${data.City} ${data.State} ${data.ZipCode}`
       .toLowerCase()
       .toLowerCase()
@@ -39,10 +35,9 @@ export default function EmployeeList() {
       <Paper sx={{ height: "100%", width: "100%" }}>
         <DataGrid
           rows={filteredEmployees}
-        
           columns={columnsConfig}
           initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[15,20, 50, 100]}
+          pageSizeOptions={[15, 20, 50, 100]}
           sx={{ border: 0 }}
           rowSelection={false}
         />

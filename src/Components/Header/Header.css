@@ -15,10 +15,24 @@ header{
     font-weight: bold;
     margin-left:1%;
 }
-.header-buttons{
+.header-container-buttons{
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-right: 1%;
     gap: 20px;
 }
+@media (max-width: 950px) {
+    .titre-header{
+        font-size: 1em;
+        font-weight: bold;
+        margin-left:1%;
+    }
+    .header-container-buttons{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-right: 1%;
+        gap: 0px;
+    }
+ }
