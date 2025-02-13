@@ -28,6 +28,9 @@ export default function CreateEmployee() {
 
 
 
+  const [error, setError] = React.useState(false);
+
+
 
   const handleOpen = (e) => {
     const DateOfBirth = document.getElementById("Date-of-Birth").value;
@@ -35,7 +38,23 @@ export default function CreateEmployee() {
     setDateOfBirth(DateOfBirth);
     setStartDate(StartDate);
 
-    // Vérifier les données envoyées
+    // Vérification si un champ est vide
+    if (
+      !FirstName ||
+      !LastName ||
+      !DateOfBirth ||
+      !StartDate ||
+      !Street ||
+      !City ||
+      !State ||
+      !ZipCode ||
+      !Department
+    ) {
+      setError(true)
+      return false; // Retourne false si un champ est vide
+    }
+
+    // Création de l'objet employé
     const employeeData = {
       FirstName,
       LastName,
@@ -47,8 +66,6 @@ export default function CreateEmployee() {
       ZipCode,
       Department,
     };
-
-    console.log("Données envoyées à Redux :", employeeData);
 
     // Dispatch des données dans Redux
     dispatch(addEmployee(employeeData));
@@ -63,30 +80,15 @@ export default function CreateEmployee() {
     setState("");
     setZipCode("");
     setDepartment("");
+    setError(false)
+    
+
+    return true; // Retourne true si tout est OK
   };
+
+
   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+  
   return (
     <section className='main-create-employee'>
       <div className='container-all-create-employee'>
@@ -94,17 +96,21 @@ export default function CreateEmployee() {
         <form>
           <div className='container-create-employee'>
             <TextField
+            value={FirstName}
               id='firstName'
               label='First Name'
               variant='outlined'
               sx={{ width: "80%" }}
+              error={error && !FirstName}
               onChange={(e) => setFirstName(e.target.value)}
             />
             <TextField
+            value={LastName}
               id='lastName'
               label='Last Name'
               variant='outlined'
               sx={{ width: "80%" }}
+              error={error && !LastName}
               onChange={(e) => setLastName(e.target.value)}
             />
           </div>
@@ -113,33 +119,40 @@ export default function CreateEmployee() {
               label='Date of Birth'
               id='Date-of-Birth'
               value={DateOfBirth}
+              error={error && !DateOfBirth}
             />
-
             <DateTimePicker
               label='Start Date'
               id='Start-Date'
               value={StartDate}
+              error={error && !StartDate}
+              
             />
           </div>
           <div className='container-create-employee'>
             <TextField
+            value={Street}
               id='street'
               label='Street'
               variant='outlined'
               sx={{ width: "80%" }}
               onChange={(e) => setStreet(e.target.value)}
+              error={error && !Street}
             />
             <TextField
+            value={City}
               label='City'
               variant='outlined'
               sx={{ width: "80%" }}
               onChange={(e) => setCity(e.target.value)}
+              error={error && !City}
             />
           </div>
           <div className='container-create-employee'>
             <FormControl sx={{ m: 1, minWidth: 250, width: "80%" }}>
               <InputLabel>State</InputLabel>
               <Select
+              error={error && !State}
                 value={State}
                 label='State'
                 id='state'
@@ -160,6 +173,8 @@ export default function CreateEmployee() {
               </Select>
             </FormControl>
             <TextField
+            value={ZipCode}
+            error={error && !ZipCode}
               label='Zip Code'
               variant='outlined'
               sx={{ width: "80%" }}
@@ -168,6 +183,7 @@ export default function CreateEmployee() {
             <FormControl sx={{ m: 1, minWidth: 250, width: "80%" }}>
               <InputLabel>Department</InputLabel>
               <Select
+              error={error && !Department}
                 id='department'
                 value={Department}
                 label='Department'

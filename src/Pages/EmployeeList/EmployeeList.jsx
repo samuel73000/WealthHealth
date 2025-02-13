@@ -16,7 +16,7 @@ export default function EmployeeList() {
   // Fonction de filtrage
 
   // mettre data a la place de employees pour afficher les données fictifs
-  const filteredEmployees = data.filter((data) => 
+  const filteredEmployees = employees.filter((data) => 
     `${data.FirstName} ${data.LastName} ${data.StartDate} ${data.Department} ${data.DateOfBirth} ${data.Street} ${data.City} ${data.State} ${data.ZipCode}`
       .toLowerCase()
       .toLowerCase()

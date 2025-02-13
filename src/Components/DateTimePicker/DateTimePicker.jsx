@@ -143,6 +143,7 @@ export default function DateTimePicker(props) {
   return (
     <section className='container-all-dateTimePicker'>
       <TextField
+      error={props.error}
       sx={{ width: '100%'}}
         id={props.id}
         label={props.label}

@@ -8,12 +8,12 @@ export default function PortalExample(props) {
 
   // Appeler la fonction qui est passée en prop, si elle existe
   const handleButtonClick = () => {
-    setShowModal(true);
     if (props.onOpen) {
-      props.onOpen(); // Si la fonction onOpen est passée en prop, on l'appelle ici
+      const isValid = props.onOpen(); // Récupérer un booléen indiquant si la validation est passée
+      if (!isValid) return; // Ne pas ouvrir la modal si la validation échoue
     }
+    setShowModal(true); // Ouvre la modal seulement si les champs sont valides
   };
-
   return (
     <>
       <Button variant='contained' onClick={handleButtonClick}>Save</Button>
