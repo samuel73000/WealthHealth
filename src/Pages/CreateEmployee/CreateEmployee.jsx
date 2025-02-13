@@ -25,12 +25,7 @@ export default function CreateEmployee() {
   const [City, setCity] = React.useState("");
   const [ZipCode, setZipCode] = React.useState("");
 
-
-
-
   const [error, setError] = React.useState(false);
-
-
 
   const handleOpen = (e) => {
     const DateOfBirth = document.getElementById("Date-of-Birth").value;
@@ -50,7 +45,7 @@ export default function CreateEmployee() {
       !ZipCode ||
       !Department
     ) {
-      setError(true)
+      setError(true);
       return false; // Retourne false si un champ est vide
     }
 
@@ -80,14 +75,11 @@ export default function CreateEmployee() {
     setState("");
     setZipCode("");
     setDepartment("");
-    setError(false)
-    
+    setError(false);
 
     return true; // Retourne true si tout est OK
   };
 
-  
-  
   return (
     <section className='main-create-employee'>
       <div className='container-all-create-employee'>
@@ -95,7 +87,7 @@ export default function CreateEmployee() {
         <form>
           <div className='container-create-employee'>
             <TextField
-            value={FirstName}
+              value={FirstName}
               id='firstName'
               label='First Name'
               variant='outlined'
@@ -104,7 +96,7 @@ export default function CreateEmployee() {
               onChange={(e) => setFirstName(e.target.value)}
             />
             <TextField
-            value={LastName}
+              value={LastName}
               id='lastName'
               label='Last Name'
               variant='outlined'
@@ -125,12 +117,11 @@ export default function CreateEmployee() {
               id='Start-Date'
               value={StartDate}
               error={error && !StartDate}
-              
             />
           </div>
           <div className='container-create-employee'>
             <TextField
-            value={Street}
+              value={Street}
               id='street'
               label='Street'
               variant='outlined'
@@ -139,7 +130,7 @@ export default function CreateEmployee() {
               error={error && !Street}
             />
             <TextField
-            value={City}
+              value={City}
               label='City'
               variant='outlined'
               sx={{ width: "100%" }}
@@ -151,8 +142,8 @@ export default function CreateEmployee() {
             <FormControl sx={{ m: 1, minWidth: 250, width: "80%" }}>
               <InputLabel>State</InputLabel>
               <Select
-              sx={{ width: "100%" }}
-              error={error && !State}
+                sx={{ width: "100%" }}
+                error={error && !State}
                 value={State}
                 label='State'
                 id='state'
@@ -173,8 +164,8 @@ export default function CreateEmployee() {
               </Select>
             </FormControl>
             <TextField
-            value={ZipCode}
-            error={error && !ZipCode}
+              value={ZipCode}
+              error={error && !ZipCode}
               label='Zip Code'
               variant='outlined'
               sx={{ width: "100%" }}
@@ -183,8 +174,8 @@ export default function CreateEmployee() {
             <FormControl sx={{ m: 1, minWidth: 250, width: "80%" }}>
               <InputLabel>Department</InputLabel>
               <Select
-              sx={{ width: "100%" }}
-              error={error && !Department}
+                sx={{ width: "100%" }}
+                error={error && !Department}
                 id='department'
                 value={Department}
                 label='Department'
