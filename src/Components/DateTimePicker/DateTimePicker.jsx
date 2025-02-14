@@ -1,5 +1,5 @@
 import "./DateTimePicker.css";
-import * as React from "react";
+import { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretLeft,
@@ -12,11 +12,11 @@ import InputAdornment from "@mui/material/InputAdornment";
 
 export default function DateTimePicker(props) {
   const calendarRef = React.useRef(null);
-  const [openCalendar, setOpenCalendar] = React.useState(false);
-  const [currentDate, setCurrentDate] = React.useState(new Date());
-  const [selectedDate, setSelectedDate] = React.useState(null);
-  const [openMonth, setOpenMonth] = React.useState(false);
-  const [openYear, setOpenYear] = React.useState(false);
+  const [openCalendar, setOpenCalendar] = useState(false);
+  const [currentDate, setCurrentDate] = useState(new Date());
+  const [selectedDate, setSelectedDate] =useState(null);
+  const [openMonth, setOpenMonth] = useState(false);
+  const [openYear, setOpenYear] = useState(false);
   const year = currentDate
     ? currentDate.getFullYear()
     : new Date().getFullYear();
