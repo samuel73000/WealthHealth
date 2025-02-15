@@ -4,7 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import * as React from "react";
+import { useState } from 'react';
 import States from "../../data/States";
 import DateTimePicker from "../../Components/DateTimePicker/DateTimePicker";
 import PortalModal from "../../Components/PortalModal/PortalModal";
@@ -15,17 +15,17 @@ import { addEmployee } from "../../Redux/Features/EmployeeSlice";
 export default function CreateEmployee() {
   const dispatch = useDispatch();
   // États locaux du formulaire
-  const [Department, setDepartment] = React.useState("");
-  const [State, setState] = React.useState("");
-  const [FirstName, setFirstName] = React.useState("");
-  const [LastName, setLastName] = React.useState("");
-  const [DateOfBirth, setDateOfBirth] = React.useState("");
-  const [StartDate, setStartDate] = React.useState("");
-  const [Street, setStreet] = React.useState("");
-  const [City, setCity] = React.useState("");
-  const [ZipCode, setZipCode] = React.useState("");
+  const [Department, setDepartment] = useState("");
+  const [State, setState] = useState("");
+  const [FirstName, setFirstName] = useState("");
+  const [LastName, setLastName] = useState("");
+  const [DateOfBirth, setDateOfBirth] = useState("");
+  const [StartDate, setStartDate] = useState("");
+  const [Street, setStreet] = useState("");
+  const [City, setCity] = useState("");
+  const [ZipCode, setZipCode] = useState("");
 
-  const [error, setError] = React.useState(false);
+  const [error, setError] = useState(false);
 
   const handleOpen = (e) => {
     const DateOfBirth = document.getElementById("Date-of-Birth").value;

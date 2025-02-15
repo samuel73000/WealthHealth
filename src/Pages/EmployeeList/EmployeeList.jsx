@@ -1,5 +1,5 @@
 import "./EmployeeList.css";
-import React, { useState } from "react";
+import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Paper, TextField } from "@mui/material";
 import data from "../../data/Employee";

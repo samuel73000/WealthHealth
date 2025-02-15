@@ -1,5 +1,5 @@
 import "./DateTimePicker.css";
-import { useState } from 'react';
+import { useState, useRef , useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCaretLeft,
@@ -11,7 +11,7 @@ import { TextField } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 
 export default function DateTimePicker(props) {
-  const calendarRef = React.useRef(null);
+  const calendarRef = useRef(null);
   const [openCalendar, setOpenCalendar] = useState(false);
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDate, setSelectedDate] =useState(null);
@@ -123,7 +123,7 @@ export default function DateTimePicker(props) {
     return years;
   }
 
-  React.useEffect(() => {
+  useEffect(() => {
     // Fonction pour fermer le calendrier lorsqu'on clique en dehors
     function handleClickOutside(event) {
       if (calendarRef.current && !calendarRef.current.contains(event.target)) {
