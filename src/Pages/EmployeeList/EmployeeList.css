@@ -4,3 +4,14 @@
     align-items: center;
     justify-content: center;
 }
+.container-tableau{
+    width: 100%;
+}
+@media (max-width: 950px) {
+    .container-tableau{
+        width: 100%; 
+        overflow-x: auto; 
+        overflow-y: hidden; 
+        white-space: nowrap; 
+      }
+}

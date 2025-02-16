@@ -32,16 +32,18 @@ export default function EmployeeList() {
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
+      <div className="container-tableau">
       <Paper sx={{ height: "100%", width: "100%" }}>
         <DataGrid
           rows={filteredEmployees}
           columns={columnsConfig}
           initialState={{ pagination: { paginationModel } }}
           pageSizeOptions={[15, 20, 50, 100]}
-          sx={{ border: 0 }}
+          sx={{ border: 0, minWidth: "1000px" }}
           rowSelection={false}
         />
       </Paper>
+      </div>
     </section>
   );
 }
