@@ -83,5 +83,4 @@ Pour construire l'application pour la production :
 npm run build
 ```
 
-Les fichiers de production seront générés dans le dossier `dist`.
 
