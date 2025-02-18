@@ -4,13 +4,13 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useState } from 'react';
+import { useState } from "react";
 import States from "../../data/States";
 import DateTimePicker from "../../Components/DateTimePicker/DateTimePicker";
 import PortalModal from "../../Components/PortalModal/PortalModal";
-
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../Redux/Features/EmployeeSlice";
+
 
 export default function CreateEmployee() {
   const dispatch = useDispatch();
@@ -26,6 +26,7 @@ export default function CreateEmployee() {
   const [ZipCode, setZipCode] = useState("");
 
   const [error, setError] = useState(false);
+
 
   const handleOpen = (e) => {
     const DateOfBirth = document.getElementById("Date-of-Birth").value;
@@ -79,6 +80,8 @@ export default function CreateEmployee() {
 
     return true; // Retourne true si tout est OK
   };
+
+
 
   return (
     <section className='main-create-employee'>

@@ -1,25 +1,21 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+import Data from "../../data/Employee"; // Importer les employés existants
 
 const initialState = {
-  employees: [],
-  nextId: 0, // Compteur pour générer un nouvel ID unique
+  employees: [...Data], // Utiliser Data comme valeur initiale
+  nextId: Data.length, // Définir l'ID de départ sur la taille actuelle de Data
 };
 
 const employeeSlice = createSlice({
-  name: 'employee',
+  name: "employee",
   initialState,
   reducers: {
     addEmployee: (state, action) => {
-      // Créer un nouvel employé avec un ID unique
       const newEmployee = {
-        id: state.nextId,  // L'ID sera égal à nextId
-        ...action.payload, // Ajouter les données de l'employé
+        id: state.nextId,  
+        ...action.payload,
       };
-      
-      // Ajouter le nouvel employé au tableau
       state.employees.push(newEmployee);
-      
-      // Incrémenter nextId pour le prochain employé
       state.nextId += 1;
     },
   },

@@ -2,17 +2,16 @@ import "./EmployeeList.css";
 import { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { Paper, TextField } from "@mui/material";
-import data from "../../data/Employee";
 import { useSelector } from "react-redux";
 import columnsConfig from "../../data/columnsConfig";
 
 export default function EmployeeList() {
   const [search, setSearch] = useState("");
   const employees = useSelector((state) => state.employee.employees);
-  // Fonction de filtrage
 
-  // mettre data a la place de employees pour afficher les données fictifs
-  const filteredEmployees = data.filter((data) =>
+
+  // Fonction de filtrage
+  const filteredEmployees = employees.filter((data) =>
     `${data.FirstName} ${data.LastName} ${data.StartDate} ${data.Department} ${data.DateOfBirth} ${data.Street} ${data.City} ${data.State} ${data.ZipCode}`
       .toLowerCase()
       .toLowerCase()
