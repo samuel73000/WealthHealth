@@ -10,6 +10,8 @@ import DateTimePicker from "../../Components/DateTimePicker/DateTimePicker";
 import PortalModal from "../../Components/PortalModal/PortalModal";
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../Redux/Features/EmployeeSlice";
+import Modal from "modalp14oc";
+
 
 
 export default function CreateEmployee() {
@@ -192,7 +194,7 @@ export default function CreateEmployee() {
             </FormControl>
           </div>
           <div className='container-create-employee'>
-            <PortalModal onOpen={handleOpen} />
+            <Modal onOpen={handleOpen}/>
           </div>
         </form>
       </div>
