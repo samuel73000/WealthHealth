@@ -7,10 +7,11 @@ import Select from "@mui/material/Select";
 import { useState } from "react";
 import States from "../../data/States";
 import DateTimePicker from "../../Components/DateTimePicker/DateTimePicker";
-import PortalModal from "../../Components/PortalModal/PortalModal";
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../Redux/Features/EmployeeSlice";
 import Modal from "modalp14oc";
+
+
 
 
 
@@ -194,7 +195,7 @@ export default function CreateEmployee() {
             </FormControl>
           </div>
           <div className='container-create-employee'>
-            <Modal onOpen={handleOpen}/>
+            <Modal onOpen={handleOpen} texteModal="Employee Created!" nameButton="open" />
           </div>
         </form>
       </div>
