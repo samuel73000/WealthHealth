@@ -81,6 +81,3 @@ Pour construire l'application pour la production :
 
 ```bash
 npm run build
-```
-
-
