@@ -9,82 +9,78 @@ import States from "../../data/States";
 import DateTimePicker from "../../Components/DateTimePicker/DateTimePicker";
 import { useDispatch } from "react-redux";
 import { addEmployee } from "../../Redux/Features/EmployeeSlice";
+import { z } from "zod";
 import Modal from "modalp14oc";
-
-
-
-
 
 export default function CreateEmployee() {
   const dispatch = useDispatch();
-  // États locaux du formulaire
-  const [Department, setDepartment] = useState("");
-  const [State, setState] = useState("");
-  const [FirstName, setFirstName] = useState("");
-  const [LastName, setLastName] = useState("");
-  const [DateOfBirth, setDateOfBirth] = useState("");
-  const [StartDate, setStartDate] = useState("");
-  const [Street, setStreet] = useState("");
-  const [City, setCity] = useState("");
-  const [ZipCode, setZipCode] = useState("");
-
+  const [formData, setFormData] = useState({
+    FirstName: "",
+    LastName: "",
+    DateOfBirth: "",
+    StartDate: "",
+    Street: "",
+    City: "",
+    State: "",
+    ZipCode: "",
+    Department: "",
+  });
   const [error, setError] = useState(false);
 
+  // Définir un schéma de validation Zod
+  const Schema = z.object({
+    FirstName: z
+      .string()
+      .min(2) // Minimum 2 caractères
+      .regex(/^[A-Za-z\s]+$/), // Validation pour les lettres
+    LastName: z
+      .string()
+      .min(2) // Minimum 2 caractères
+      .regex(/^[A-Za-z\s]+$/), // Validation pour les lettres
+    DateOfBirth: z.string().nonempty(), // Validation pour la date
+    StartDate: z.string().nonempty(), // Validation pour la date
+    Street: z.string().min(5), // Minimum 5 caractères
+    City: z.string().min(3), // Minimum 3 caractères
+    State: z.string().nonempty(), // Validation pour l'état
+    ZipCode: z.string().regex(/^\d{5}$/), // Validation pour les 5 chiffres
+    Department: z.string().nonempty(), // Validation pour le département
+  });
 
   const handleOpen = (e) => {
     const DateOfBirth = document.getElementById("Date-of-Birth").value;
     const StartDate = document.getElementById("Start-Date").value;
-    setDateOfBirth(DateOfBirth);
-    setStartDate(StartDate);
+    setFormData((prevData) => ({
+      ...prevData,
+      DateOfBirth: DateOfBirth,
+      StartDate: StartDate,
+    }));
 
-    // Vérification si un champ est vide
-    if (
-      !FirstName ||
-      !LastName ||
-      !DateOfBirth ||
-      !StartDate ||
-      !Street ||
-      !City ||
-      !State ||
-      !ZipCode ||
-      !Department
-    ) {
+    // Validation des données avant de soumettre
+    const result = Schema.safeParse(formData);
+    if (!result.success) {
       setError(true);
-      return false; // Retourne false si un champ est vide
+      return false;
     }
 
-    // Création de l'objet employé
-    const employeeData = {
-      FirstName,
-      LastName,
-      DateOfBirth,
-      StartDate,
-      Street,
-      City,
-      State,
-      ZipCode,
-      Department,
-    };
-
     // Dispatch des données dans Redux
-    dispatch(addEmployee(employeeData));
+    dispatch(addEmployee(formData));
 
     // Réinitialisation du formulaire
-    setFirstName("");
-    setLastName("");
-    setDateOfBirth("");
-    setStartDate("");
-    setStreet("");
-    setCity("");
-    setState("");
-    setZipCode("");
-    setDepartment("");
+    setFormData({
+      FirstName: "",
+      LastName: "",
+      DateOfBirth: "",
+      StartDate: "",
+      Street: "",
+      City: "",
+      State: "",
+      ZipCode: "",
+      Department: "",
+    });
     setError(false);
 
     return true; // Retourne true si tout est OK
   };
-
-
 
   return (
     <section className='main-create-employee'>
@@ -93,55 +89,75 @@ export default function CreateEmployee() {
         <form>
           <div className='container-create-employee'>
             <TextField
-              value={FirstName}
+              value={formData.FirstName}
               id='firstName'
               label='First Name'
               variant='outlined'
               sx={{ width: "100%" }}
-              error={error && !FirstName}
-              onChange={(e) => setFirstName(e.target.value)}
+              error={error && !formData.FirstName}
+              onChange={(e) =>
+                setFormData((prevData) => ({
+                  ...prevData,
+                  FirstName: e.target.value,
+                }))
+              }
             />
             <TextField
-              value={LastName}
+              value={formData.LastName}
               id='lastName'
               label='Last Name'
               variant='outlined'
               sx={{ width: "100%" }}
-              error={error && !LastName}
-              onChange={(e) => setLastName(e.target.value)}
+              error={error && !formData.LastName}
+              onChange={(e) =>
+                setFormData((prevData) => ({
+                  ...prevData,
+                  LastName: e.target.value,
+                }))
+              }
             />
           </div>
           <div className='container-create-employee'>
             <DateTimePicker
               label='Date of Birth'
               id='Date-of-Birth'
-              value={DateOfBirth}
-              error={error && !DateOfBirth}
+              value={formData.DateOfBirth}
+              error={error && !formData.DateOfBirth}
             />
             <DateTimePicker
               label='Start Date'
               id='Start-Date'
-              value={StartDate}
-              error={error && !StartDate}
+              value={formData.StartDate}
+              error={error && !formData.StartDate}
             />
           </div>
           <div className='container-create-employee'>
             <TextField
-              value={Street}
+              value={formData.Street}
               id='street'
               label='Street'
               variant='outlined'
               sx={{ width: "100%" }}
-              onChange={(e) => setStreet(e.target.value)}
-              error={error && !Street}
+              onChange={(e) =>
+                setFormData((prevData) => ({
+                  ...prevData,
+                  Street: e.target.value,
+                }))
+              }
+              error={error && !formData.Street}
             />
             <TextField
-              value={City}
+              value={formData.City}
               label='City'
               variant='outlined'
               sx={{ width: "100%" }}
-              onChange={(e) => setCity(e.target.value)}
-              error={error && !City}
+              onChange={(e) =>
+                setFormData((prevData) => ({
+                  ...prevData,
+                  City: e.target.value,
+                }))
+              }
+              error={error && !formData.City}
             />
           </div>
           <div className='container-create-employee'>
@@ -149,11 +165,16 @@ export default function CreateEmployee() {
               <InputLabel>State</InputLabel>
               <Select
                 sx={{ width: "100%" }}
-                error={error && !State}
-                value={State}
+                error={error && !formData.State}
+                value={formData.State}
                 label='State'
                 id='state'
-                onChange={(e) => setState(e.target.value)}
+                onChange={(e) =>
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    State: e.target.value,
+                  }))
+                }
                 MenuProps={{
                   PaperProps: {
                     style: {
@@ -170,22 +191,32 @@ export default function CreateEmployee() {
               </Select>
             </FormControl>
             <TextField
-              value={ZipCode}
-              error={error && !ZipCode}
+              value={formData.ZipCode}
+              error={error && !formData.ZipCode}
               label='Zip Code'
               variant='outlined'
               sx={{ width: "100%" }}
-              onChange={(e) => setZipCode(e.target.value)}
+              onChange={(e) =>
+                setFormData((prevData) => ({
+                  ...prevData,
+                  ZipCode: e.target.value,
+                }))
+              }
             />
             <FormControl sx={{ m: 1, minWidth: 250, width: "80%" }}>
               <InputLabel>Department</InputLabel>
               <Select
                 sx={{ width: "100%" }}
-                error={error && !Department}
+                error={error && !formData.Department}
                 id='department'
-                value={Department}
+                value={formData.Department}
                 label='Department'
-                onChange={(e) => setDepartment(e.target.value)}>
+                onChange={(e) =>
+                  setFormData((prevData) => ({
+                    ...prevData,
+                    Department: e.target.value,
+                  }))
+                }>
                 <MenuItem value={"Sales"}>Sales</MenuItem>
                 <MenuItem value={"Marketing"}>Marketing</MenuItem>
                 <MenuItem value={"Engineering"}>Engineering</MenuItem>
@@ -195,7 +226,11 @@ export default function CreateEmployee() {
             </FormControl>
           </div>
           <div className='container-create-employee'>
-            <Modal onOpen={handleOpen} texteModal="Employee Created!" nameButton="open" />
+            <Modal
+              onOpen={handleOpen}
+              texteModal='Employee Created!'
+              nameButton='open'
+            />
           </div>
         </form>
       </div>
