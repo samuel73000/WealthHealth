@@ -4,7 +4,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import States from "../../data/States";
 import DateTimePicker from "../../Components/DateTimePicker/DateTimePicker";
 import { useDispatch } from "react-redux";
@@ -31,39 +31,37 @@ export default function CreateEmployee() {
   const Schema = z.object({
     FirstName: z
       .string()
-      .min(2) // Minimum 2 caractères
-      .regex(/^[A-Za-z\s]+$/), // Validation pour les lettres
+      .min(2) 
+      .regex(/^[A-Za-z\s]+$/), 
     LastName: z
       .string()
-      .min(2) // Minimum 2 caractères
-      .regex(/^[A-Za-z\s]+$/), // Validation pour les lettres
-    DateOfBirth: z.string().nonempty(), // Validation pour la date
-    StartDate: z.string().nonempty(), // Validation pour la date
-    Street: z.string().min(5), // Minimum 5 caractères
-    City: z.string().min(3), // Minimum 3 caractères
-    State: z.string().nonempty(), // Validation pour l'état
-    ZipCode: z.string().regex(/^\d{5}$/), // Validation pour les 5 chiffres
-    Department: z.string().nonempty(), // Validation pour le département
+      .min(2) 
+      .regex(/^[A-Za-z\s]+$/), 
+    DateOfBirth: z.string().nonempty(), 
+    StartDate: z.string().nonempty(), 
+    Street: z.string().min(5), 
+    City: z.string().min(3), 
+    State: z.string().nonempty(), 
+    ZipCode: z.string().regex(/^\d{4}$/), 
+    Department: z.string().nonempty(), 
   });
 
   const handleOpen = (e) => {
-    const DateOfBirth = document.getElementById("Date-of-Birth").value;
-    const StartDate = document.getElementById("Start-Date").value;
-    setFormData((prevData) => ({
-      ...prevData,
-      DateOfBirth: DateOfBirth,
-      StartDate: StartDate,
-    }));
+    const updatedFormData = {
+      ...formData,
+      DateOfBirth: document.getElementById("Date-of-Birth").value,
+      StartDate: document.getElementById("Start-Date").value,
+    };
 
     // Validation des données avant de soumettre
-    const result = Schema.safeParse(formData);
+    const result = Schema.safeParse(updatedFormData);
     if (!result.success) {
       setError(true);
       return false;
     }
 
     // Dispatch des données dans Redux
-    dispatch(addEmployee(formData));
+    dispatch(addEmployee(updatedFormData));
 
     // Réinitialisation du formulaire
     setFormData({
@@ -77,6 +75,11 @@ export default function CreateEmployee() {
       ZipCode: "",
       Department: "",
     });
+    setTimeout(() => {
+      document.getElementById("Date-of-Birth").value = "";
+      document.getElementById("Start-Date").value = "";
+    }, 0);
+
     setError(false);
 
     return true; // Retourne true si tout est OK
