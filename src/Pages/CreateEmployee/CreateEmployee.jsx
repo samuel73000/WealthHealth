@@ -42,7 +42,7 @@ export default function CreateEmployee() {
     Street: z.string().min(5), 
     City: z.string().min(3), 
     State: z.string().nonempty(), 
-    ZipCode: z.string().regex(/^\d{4}$/), 
+    ZipCode: z.string().regex(/^\d+$/),
     Department: z.string().nonempty(), 
   });
 
