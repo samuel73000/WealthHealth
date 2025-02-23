@@ -75,9 +75,3 @@ npm run dev
 - Utilisez les hooks React de manière appropriée
 - Respectez les principes de Material-UI pour l'interface
 
-## Production
-
-Pour construire l'application pour la production :
-
-```bash
-npm run build
