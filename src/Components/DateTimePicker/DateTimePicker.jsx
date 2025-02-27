@@ -21,7 +21,7 @@ export default function DateTimePicker(props) {
     ? currentDate.getFullYear()
     : new Date().getFullYear();
   const month = currentDate ? currentDate.getMonth() : new Date().getMonth();
-  const yearsList = generateYearsList(year, 1930); // Liste des années de 1950 à l'année actuelle
+  const yearsList = generateYearsList(year, 1930); // Liste des années de 1930 à l'année actuelle
   const daysOfWeek = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
   const monthsOfYear = [
     "January",
@@ -261,3 +261,27 @@ export default function DateTimePicker(props) {
     </section>
   );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
