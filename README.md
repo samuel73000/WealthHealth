@@ -69,9 +69,4 @@ npm run dev
 
 2. Ouvrez [http://localhost:5173](http://localhost:5173) dans votre navigateur
 
-## Bonnes Pratiques
-- Utilisez ESLint pour maintenir la qualité du code
-- Suivez les conventions de composants React
-- Utilisez les hooks React de manière appropriée
-- Respectez les principes de Material-UI pour l'interface
 
