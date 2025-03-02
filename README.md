@@ -67,6 +67,6 @@ Pour démarrer le développement :
 npm run dev
 ```
 
-2. Ouvrez [http://localhost:5173](http://localhost:5173) dans votre navigateur
+
 
 
